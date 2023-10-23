@@ -9,5 +9,15 @@ class Produto extends Model
 {
     use HasFactory;
 
+    //Nome da Tabela
     protected $table = 'produtos'; 
+
+    //Informa de onde é pra pegar a informação do campo
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function categoria() {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
 }
