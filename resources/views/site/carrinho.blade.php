@@ -80,7 +80,7 @@
               <span class="card-title">R$ {{ number_format(\Cart::getTotal(), 2, ',', '.') }}</span>
               <p>Pague em 12x sem juros!</p>
             </div>
-          </div>
+        </div>
         
 
     @endif
