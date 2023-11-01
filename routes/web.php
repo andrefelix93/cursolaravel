@@ -28,4 +28,4 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 #Nessa rota abaixo o middleware está sendo usado no controller através do construtor.
 #Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 #Dessa forma abaixo está usando o middleware direto na rota.
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'checkemail']);
