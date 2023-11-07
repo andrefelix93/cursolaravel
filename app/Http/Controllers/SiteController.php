@@ -32,14 +32,13 @@ class SiteController extends Controller
             return redirect()->route('site.index');
         }
         
-        """ Dessa forma usa a Policy através do CAN/CANNOT
-        if(auth()->user()->can('verProduto', Nome do Model)){
-            return view('site.details', compact('produto'));
-        }
-        if(auth()->user()->cannot('verProduto', Nome do Model)){
-            return view('site.details', compact('produto'));
-        }
-        """
+        // Dessa forma usa a Policy através do CAN/CANNOT
+        //if(auth()->user()->can('verProduto', Nome do Model)){
+        //    return view('site.details', compact('produto'));
+        //}
+        //if(auth()->user()->cannot('verProduto', Nome do Model)){
+        //    return view('site.details', compact('produto'));
+        //}
 
     }
 
