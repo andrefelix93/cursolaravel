@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Categoria;
+use App\Models\Produto;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -15,6 +19,42 @@ class DashboardController extends Controller
     #}
 
     public function index() {
-        return view('admin.dashboard');
+        $usuarios = User::all()->count();
+
+        //Grafico 1 - Usuários
+        $usersData = User::select([
+            DB::raw('YEAR(created_at) as ano'),
+            DB::raw('COUNT(*) as total'),
+        ])
+        ->groupBy('ano')
+        ->orderBy('ano', 'asc')
+        ->get();
+
+        //Preparar Arrays
+        foreach ($usersData as $user) {
+            $ano[] = $user->ano;
+            $total[] = $user->total;
+        }
+
+        //Formatar para o chart.js
+        $userLabel = "'Comparativo de cadastros de usuários'";
+        $userAno = implode(',', $ano);
+        $userTotal = implode(',', $total);
+
+        //Grafico 2 - Categorias
+        $catData = Categoria::all();
+
+        //Preparar Arrays
+        foreach ($catData as $cat) {
+            $catNome[] = "'".$cat->nome."'";
+            $catTotal[] = Produto::where('id_categoria', $cat->id)->count();
+        }
+
+
+        //Formatar para o chart.js
+        $catLabel = implode(',', $catNome);
+        $catTotal = implode(',', $catTotal);
+
+        return view('admin.dashboard', compact('usuarios', 'userLabel', 'userAno', 'userTotal', 'catLabel', 'catTotal'));
     }
 }
