@@ -22,9 +22,25 @@ class SiteController extends Controller
         $produto = Produto::where('slug', $slug)->first();
 
         //Gate::authorize('ver-produto', $produto);
-        $this->authorize('verProduto', $produto);
+        //$this->authorize('verProduto', $produto);
 
-        return view('site.details', compact('produto'));
+        if(Gate::allows('ver-produto', $produto)){
+            return view('site.details', compact('produto'));
+        }
+
+        """ Dessa forma usa a Policy através do CAN/CANNOT
+        if(auth()->user()->can('verProduto', Nome do Model)){
+            return view('site.details', compact('produto'));
+        }
+        if(auth()->user()->cannot('verProduto', Nome do Model)){
+            return view('site.details', compact('produto'));
+        }
+        """
+
+        if(Gate::denies('ver-produto', $produto)){
+            return redirect()->route('site.index');
+        }
+        
 
     }
 
