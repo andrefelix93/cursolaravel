@@ -11,8 +11,8 @@ use App\Http\Controllers\UserController;
 
 #EXEMPLOS DE ROTAS ESTÃO NO ARQUIVO routes/rotasteste.php
 
-Route::resource('produtos', ProdutoController::class);
-Route::resource('users', UserController::class);
+//Route::resource('produtos', ProdutoController::class);
+//Route::resource('users', UserController::class);
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/produto/{slug}', [SiteController::class, 'details'])->name('site.details');
@@ -33,6 +33,4 @@ Route::get('/register', [LoginController::class, 'create'])->name('login.create'
 #Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 #Dessa forma abaixo está usando o middleware direto na rota.
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'checkemail']);
-Route::get('/admin/produtos', function(){
-    return view('admin.produtos');
-})->name('admin.produtos');
+Route::get('/admin/produtos', [ProdutoController::class, 'index'])->name('admin.produtos');
