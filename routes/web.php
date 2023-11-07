@@ -33,3 +33,6 @@ Route::get('/register', [LoginController::class, 'create'])->name('login.create'
 #Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 #Dessa forma abaixo está usando o middleware direto na rota.
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'checkemail']);
+Route::get('/admin/produtos', function(){
+    return view('admin.produtos');
+})->name('admin.produtos');
